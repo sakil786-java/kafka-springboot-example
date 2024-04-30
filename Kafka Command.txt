@@ -1,0 +1,263 @@
+Kafka
+
+
+first start zookeeper:
+C:\kafka_2.13-3.6.0>bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+
+
+
+then start kafka: default port 9092
+
+>zookeeper-server-start.bat C:\kafka_2\config\zookeeper.properties
+>kafka-server-start.bat C:\kafka_2\config\server.properties
+
+
+
+
+C:\kafka_2.13-3.6.0>bin\windows\kafka-server-start.bat config\server.properties
+
+
+kafka-server-start.bat C:\kafka_2\config\server.properties
+
+To See List of Topic 
+bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
+
+
+Create new topic: 
+
+kafka-topics.bat --bootstrap-server localhost:9092 --create --topic javatechie_spring-topic1 --partitions 3 --replication-factor 1
+Created topic javatechie_spring-topic1
+ 
+bin\windows\kafka-topics.bat --create --replication-factor 1 --partitions 1 --topic first-topic --bootstrap-server localhost:9092
+Created topic first-topic.
+
+
+
+kafka-topics.bat --bootstrap-server localhost:9092 --create --topic spring_topic1 --partitions 3 --replication-factor 1
+List of topics :
+kafka-topics.bat --bootstrap-server localhost:9092 --list
+
+Describe the Topics: 
+
+kafka-topics.bat --bootstrap-server localhost:9092 --describe --topic javatechie_spring-topic
+Topic: javatechie_spring-topic  TopicId: N8sgjAR7RjSu1t6ij5oUmw PartitionCount: 3       ReplicationFactor: 1    Configs:
+        Topic: javatechie_spring-topic  Partition: 0    Leader: 0       Replicas: 0     Isr: 0
+        Topic: javatechie_spring-topic  Partition: 1    Leader: 0       Replicas: 0     Isr: 0
+        Topic: javatechie_spring-topic  Partition: 2    Leader: 0       Replicas: 0     Isr: 0
+
+
+
+bin\windows\kafka-topics.bat --describe --topic first-topic --bootstrap-server localhost:9092
+Topic: first-topic      TopicId: sIsXjtkhS7G299gma38GRw PartitionCount: 1       ReplicationFactor: 1    Configs:
+        Topic: first-topic      Partition: 0    Leader: 0       Replicas: 0     Isr: 0
+
+
+
+For Producer
+>kafka-console-producer --broker-list localhost:9092 --topic first-topic
+>kafka-console-producer.bat --broker-list localhost:9092 --topic javatechie_spring-topic
+>Type messages
+
+
+For Consume first
+
+kafka-console-consumer --bootstrap-server localhost:9092 --topic first-topic
+
+
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic javatechie_spring-topic --from-beginning
+
+
+
+
+For deleteing Topics 
+kafka-topics --delete --bootstrap-server localhost:9092 --topic first-topic
+
+
+
+
+For Upload CSV file or bulk data
+kafka-console-producer.bat --broker-list localhost:9092 --topic javatechie_spring-topic <C:\Users\user\Downloads\email.csv
+
+
+
+
+
+
+
+
+
+
+In Spring boot application consumer: for console
+bin\windows\kafka-console-consumer.bat --topic location-update-topic --from-beginning --bootstrap-server localhost:9092
+
+
+
+
+
+Windows
+___________
+Create new topic 
+bin\windows\kafka-topics.bat --create --replication-factor 1 --partitions 1 --topic first-topic --bootstrap-server localhost:9092
+Created topic first-topic.
+
+Describe the Topics
+bin\windows\kafka-topics.bat --describe --topic first-topic --bootstrap-server localhost:9092
+Topic: first-topic      TopicId: sIsXjtkhS7G299gma38GRw PartitionCount: 1       ReplicationFactor: 1    Configs:
+        Topic: first-topic      Partition: 0    Leader: 0       Replicas: 0     Isr: 0
+
+>bin\windows\kafka-topics.bat --create --topic user-topic --bootstrap-server localhost:9092
+
+Produce new topic 
+bin\windows\kafka-console-producer.bat --topic user-topic --bootstrap-server localhost:9092
+
+Consuming message
+bin\windows\kafka-console-consumer.bat --topic user-topic --from-beginning --bootstrap-server localhost:9092
+
+Producer configuration
+spring.kafka.producer.bootstrap-servers=localhost:9092
+spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.value-serializer=org.apache.kafka.common.serialization.StringSerializer
+
+
+Consumer configuration
+server.port=8081
+spring.kafka.consumer.bootstrap-servers=localhost:9092
+spring.kafka.consumer.group-id=group-id
+spring.kafka.consumer.auto-offset-reset=earliest
+spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+
+________________
+ 
+
+
+
+
+
+
+If kafka not working then stop zookeeper
+
+For task kill
+netstat -ano | find/i "listening"
+
+netstat -ano | findstr :2181
+
+taskkill/F /PID 28972
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__________________________
+Kafka
+
+
+first start zookeeper:
+C:\kafka_2.13-3.6.0>bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+
+
+
+then start kafka: default port 9092
+
+C:\kafka_2.13-3.6.0>bin\windows\kafka-server-start.bat config\server.properties
+
+
+C:\kafka_2.13-3.6.0>bin\windows\kafka-topics.bat --create --topic user-topic --bootstrap-server localhost:9092
+Created topic user-topic.
+
+C:\kafka_2.13-3.6.0>bin\windows\kafka-acls.bat --help
+This tool helps to manage acls on kafka.
+
+
+Produce message :
+C:\kafka_2.13-3.6.0>bin\windows\kafka-console-producer.bat --topic user-topic --bootstrap-server localhost:9092
+>Hi this is my first event
+
+Consumer message:
+C:\kafka_2.13-3.6.0>bin\windows\kafka-console-consumer.bat --topic user-topic --from-beginning --bootstrap-server localhost:9092
+Hi this is my first event
+
+
+
+
+
+______________________
+Kafka
+
+
+first start zookeeper:
+C:\kafka_2.13-3.6.0>bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+
+
+
+then start kafka: default port 9092
+
+C:\kafka_2.13-3.6.0>bin\windows\kafka-server-start.bat config\server.properties
+
+
+To See List of Topic 
+bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
+C:\kafka_2.13-3.6.0>bin\windows\kafka-topics.bat --create --topic user-topic --bootstrap-server localhost:9092
+Created topic user-topic.
+
+C:\kafka_2.13-3.6.0>bin\windows\kafka-acls.bat --help
+This tool helps to manage acls on kafka.
+
+
+Produce message :
+C:\kafka_2.13-3.6.0>bin\windows\kafka-console-producer.bat --topic user-topic --bootstrap-server localhost:9092
+>Hi this is my first event
+
+Consumer message:
+C:\kafka_2.13-3.6.0>bin\windows\kafka-console-consumer.bat --topic user-topic --from-beginning --bootstrap-server localhost:9092
+Hi this is my first event
+
+
+
+
+
+
+Kafka By Docker 
+first start docker desktop
+
+C:\Users\user>cd Desktop
+
+
+C:\Users\user\Desktop>docker compose -f docker-compose.yml up -d
+[+] Running 3/3
+ ✔ Network desktop_default  Created                                                                                0.1s
+ ✔ Container zookeeper      Started                                                                                1.0s
+ ✔ Container kakfa          Started
+
+
+
+
+
+ZOokeper and kafka by docker
+
+command : docker-compose -f docker-compose.yml up -d
+
+
+
+C:\Users\user>cd Desktop
+
+C:\Users\user\Desktop>docker-compose -f docker-compose.yml up -d
+
+
+
+>zookeeper-server-start.bat C:\kafka_2\config\zookeeper.properties
+
+>zookeeper-server-start.bat C:\kafka_2\config\zookeeper.properties
